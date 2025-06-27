@@ -1,0 +1,24 @@
+{
+    "en": {
+        "blue": "Blue",
+        "red": "Red",
+        "alliance": "Alliance",
+        "blueAlliance": "Blue Alliance",
+        "redAlliance": "Red Alliance",
+        "waiting": "Waiting",
+        "auto": "Auto",
+        "tele": "Teleop",
+        "disabled": "Disabled"
+    },
+    "es": {
+        "blue": "Azul",
+        "red": "Rojo",
+        "alliance": "Alianza",
+        "blueAlliance": "Alianza Azul",
+        "redAlliance": "Alianza Roja",
+        "waiting": "Espera",
+        "auto": "Auto",
+        "tele": "Teleop",
+        "disabled": "Desactivado"
+    }
+}
