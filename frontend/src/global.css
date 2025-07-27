@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "tailwindcss-motion";
-
-/* @import "./fonts/Qualy.css"; */
+@import "./fonts/Qualy.css";
 
 body {
+  overflow-x: hidden;
   margin: 0;
   /* font-family: "Roboto Variable"; */
 }

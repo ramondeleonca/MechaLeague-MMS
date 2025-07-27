@@ -1,0 +1,1 @@
+export type MatchStatus = "waiting" | "auto" | "tele" | "disabled";

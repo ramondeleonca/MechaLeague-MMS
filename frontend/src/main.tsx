@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // Import routes
 import Home from './routes/Home'
 import Overlay from './routes/Overlay'
+import Referee from './routes/Referee'
 
 // Import styles
 import './global.css'
@@ -19,7 +20,6 @@ import "@fontsource-variable/roboto"
 
 // shadcn/ui theme provider
 import { ThemeProvider } from './components/theme-provider'
-import Referee from './routes/Referee'
 
 function withThemeProvider(component: React.ReactNode) {
   return (
