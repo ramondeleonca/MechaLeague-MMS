@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './routes/Home'
 import Overlay from './routes/Overlay'
 import Referee from './routes/Referee'
+import Manage from './routes/Manage'
 
 // Import styles
 import './global.css'
@@ -36,6 +37,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           {/* CONTROLS */}
           {/* INDEX */}
           <Route index element={withThemeProvider(<Home></Home>)}></Route>
+
+          {/* MANAGER ROUTE */}
+          <Route path="/manage" element={withThemeProvider(<Manage></Manage>)}></Route>
 
           {/* REFEREE CONTROLS */}
           <Route path="/referee" element={withThemeProvider(<Referee></Referee>)}></Route>

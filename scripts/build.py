@@ -1,27 +1,27 @@
-from PyInstaller import __main__ as pyinstaller
 import os
+import subprocess as sp
+import zipfile
+import sys
+from PyInstaller import __main__ as pyinstaller
 
 if __name__ == "__main__":
-    args = [
-        '--name=mechaleague_mms',
-        # '--onefile',
-        # '--windowed',  # Use --noconsole for no console window
-        f'--add-data=frontend/dist{os.pathsep}frontend/dist',  # Include frontend files
-        '-y'
-    ]
+    if not "--onlyzip" in sys.argv:
+        # Build frontend first
+        sp.run(args="npm run build", shell=True, cwd="frontend")
 
-    # Add frontend files recursively
-    # frontend_dir = os.path.join('frontend', 'dist')
+        # Build distributable
+        pyinstaller.run([
+            '--name=mechaleague_mms',
+            f'--add-data=frontend/dist{os.pathsep}frontend/dist',
+            '-y',
+            'main.py'
+        ])
 
-    # if os.path.exists(frontend_dir):
-    #     for root, dirs, files in os.walk(frontend_dir):
-    #         for file in files:
-    #             file_path = os.path.join(root, file)
-    #             args.append(f"--add-data={file_path}{os.pathsep}{os.path.relpath(root, frontend_dir)}")
-
-    # Add the main script
-    args.append('main.py')
-
-    print(f"Building with arguments: {args}")
-
-    pyinstaller.run(args)
+    # Zip the dist folder
+    dist_dir = "dist"
+    zipf = zipfile.ZipFile('mechaleague_mms.zip', 'w', zipfile.ZIP_DEFLATED)
+    for root, dirs, files in os.walk(dist_dir):
+        for file in files:
+            zipf.write(os.path.join(root, file),
+                       os.path.relpath(os.path.join(root, file),
+                                       os.path.join(dist_dir, '..')))

@@ -8,15 +8,26 @@ import time
 import sys
 import uvicorn
 import asyncio
-import webview
+import webbrowser
 from dataclasses import asdict
 import uvicorn.config
+import platformdirs
 from match_manager import Match, MatchType, MatchScores
 
-# * Global variables
+# * App constants
+APP_NAME = "Match Management System"
+APP_AUTHOR = "MechaLeague"
+APP_DIR = platformdirs.user_data_dir(APP_NAME, APP_AUTHOR)
+os.makedirs(APP_DIR, exist_ok=True)
+print(f"App data directory: {APP_DIR}")
+
+# * Global constants
 FROZEN = getattr(sys, "frozen", False)
 DIRNAME = os.path.dirname(os.path.abspath(__file__)) if not FROZEN else sys._MEIPASS
 DIST_DIR = os.path.join(DIRNAME, "./frontend/dist")
+
+# * Network constants
+HOST = "0.0.0.0"
 PORT = 5252
 
 #! MATCH MANAGER
@@ -38,25 +49,8 @@ async def serve_react_app(request: Request, full_path: str):
 @app.post("/referee/report")
 async def referee_report(request: Request):
     data = await request.json()
-    # Simulate some processing
-    # time.sleep(random.randint(1, 3) * 0.5)
-    # print(data)
 
     match.scores = MatchScores(**data)
-
-    # match.red_left_orbit = data["redLeftOrbit"]
-    # match.red_middle_orbit = data["redMiddleOrbit"]
-    # match.red_right_orbit = data["redRightOrbit"]
-    # match.red_protons = data["redProtons"]
-    # match.red_neutrons = data["redNeutrons"]
-
-    # match.blue_left_orbit = data["blueLeftOrbit"]
-    # match.blue_middle_orbit = data["blueMiddleOrbit"]
-    # match.blue_right_orbit = data["blueRightOrbit"]
-    # match.blue_protons = data["blueProtons"]
-    # match.blue_neutrons = data["blueNeutrons"]
-    
-    # match.events.emit("update", None, None, None)
     
     return {"status": "success"}
 
@@ -98,22 +92,16 @@ async def _broadcast_update():
 def match_update_broadcast_ws(name, old, new):
     asyncio.create_task(_broadcast_update())
 
-# ! Webview
-window = webview.create_window(
-    title="MechaLeague Match Management System",
-    url=f"http://127.0.0.1:{PORT}",
-    confirm_close=True,
-    
-)
 
 def run_app():
+    webbrowser.open(f"http://127.0.0.1:{PORT}/manage", 2)
     uvicorn.config.LOGGING_CONFIG["handlers"]["default"]["stream"] = "ext://sys.stdout"
     uvicorn.run(
         app=app,
-        host="0.0.0.0",
+        host=HOST,
         port=PORT,
         log_config=uvicorn.config.LOGGING_CONFIG
     )
 
 if __name__ == '__main__':
-    webview.start(func=run_app)
+    run_app()
