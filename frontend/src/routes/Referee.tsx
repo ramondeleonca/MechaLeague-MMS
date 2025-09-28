@@ -1,17 +1,9 @@
+import { statusIconMap } from "@/common/status-icon-map";
 import NumberFlip from "@/components/numberflip";
-import { Button } from "@/components/ui/button";
 import { MatchStatus } from "@/types";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import useWebSocket from "react-use-websocket"
-import { useHaptic } from "use-haptic";
-
-const statusMap = {
-    "waiting": "/static/icons/wait.svg",
-    "auto": "/static/icons/mechaleague_car.svg",
-    "tele": "/static/icons/controller.svg",
-    "disabled": "/static/icons/stop.svg"
-} satisfies {[key in MatchStatus]: string};
 
 export type OrbitProps = { 
     color: "red" | "blue", 
@@ -128,8 +120,6 @@ export default function Referee() {
 
     const time = "00:00";
 
-    const { triggerHaptic } = useHaptic();
-
     return (
         <div className="w-full h-full">
             {/* STATUS BAR */}
@@ -168,7 +158,7 @@ export default function Referee() {
                 {/* TIMER */}
                 <div className="h-full w-28 flex justify-center flex-col items-center bg-white">
                     <div className="info h-1/4 flex justify-center items-center">
-                        <motion.img src={statusMap[matchStatus]} key={matchStatus} className="w-6 -mb-3 aspect-square" initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2, ease: "backOut" }}></motion.img>
+                        <motion.img src={statusIconMap[matchStatus]} key={matchStatus} className="w-6 -mb-3 aspect-square" initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2, ease: "backOut" }}></motion.img>
                     </div>
 
                     <div className="font-[Roboto Variable] font-bold text-4xl text-black flex justify-center items-center relative">

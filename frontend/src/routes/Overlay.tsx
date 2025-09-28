@@ -5,8 +5,21 @@ import NumberFlip from "@/components/numberflip";
 import { Helmet } from "react-helmet";
 import { motion } from "motion/react"
 import { useSearchParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { MatchStatus } from "@/types";
+
+function Orbit () {
+    return (
+        <div className="h-full w-1/3 p-2 flex items-center justify-center">
+            <div className="aspect-square h-full flex flex-wrap">
+                {Array(9).fill(0).map((_, i) => (
+                    <div className="w-1/3 h-1/3 outline-white flex items-center justify-center" key={i}>
+                        <div className="w-4/5 aspect-square rounded-xs bg-white"></div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
 
 export default function Overlay() {
     const [params] = useSearchParams();
@@ -73,6 +86,15 @@ export default function Overlay() {
                                 <div className="w-1/3 flex justify-center border-r-[1px] border-l-[1px] border-[#00000050]"><h1 className="team-number text-black">2222</h1></div>
                                 <div className="w-1/3 flex justify-center"><h1 className="team-number text-black">2222</h1></div>
                             </div>
+
+                            {/* Advanced scores */}
+                            <div className="w-full grow flex">
+                                <Orbit></Orbit>
+
+                                <div className="h-full w-2/3">
+                                
+                                </div>
+                            </div>
                         </div>
 
                         <div className="bg-[#155dfc] text-white h-full aspect-square flex justify-center flex-col gap-2">
@@ -114,15 +136,7 @@ export default function Overlay() {
 
                             {/* Advanced scores */}
                             <div className="w-full grow flex">
-                                <div className="h-full w-1/3 p-2 flex items-center justify-center">
-                                    <div className="aspect-square h-full flex flex-wrap">
-                                        {Array(9).fill(0).map((_, i) => (
-                                            <div className="w-1/3 h-1/3 outline-white flex items-center justify-center" key={i}>
-                                                <div className="w-4/5 aspect-square rounded-xs bg-white"></div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                                <Orbit></Orbit>
 
                                 <div className="h-full w-2/3">
                                 
