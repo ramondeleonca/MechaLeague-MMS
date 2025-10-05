@@ -111,6 +111,7 @@ def match_update_broadcast_ws(name, old, new):
 
 
 def run_app():
+    print(banner_str)
     webbrowser.open(f"http://127.0.0.1:{PORT}/{DEFAULT_ROUTE}", 2)
     uvicorn.config.LOGGING_CONFIG["handlers"]["default"]["stream"] = "ext://sys.stdout"
     uvicorn.run(
